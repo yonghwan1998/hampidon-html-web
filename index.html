@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>햄피돈 - 동네 맛집 탐험대</title>
+    
+    <!-- Google Fonts: Jua 적용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { font-family: 'Jua', sans-serif; background-color: #fffaf0; }
+        
+        #hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .adventure-gradient {
+            background: linear-gradient(135deg, rgba(255, 126, 95, 0.7), rgba(254, 211, 77, 0.7));
+        }
+
+        /* 강조 스타일 */
+        .highlight {
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+            color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        .active-burger { color: #f6e05e !important; text-shadow: 0 0 20px #f6e05e !important; }
+        .active-pizza { color: #fc8181 !important; text-shadow: 0 0 20px #fc8181 !important; }
+        .active-tonkatsu { color: #fbd38d !important; text-shadow: 0 0 20px #fbd38d !important; }
+    </style>
+</head>
+<body class="text-gray-900">
+    <header id="hero" class="text-center">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2022/10/24/0f16eff9ca4f07a1db05024a6c18a6841.jpg');"></div>
+
+        <div class="absolute inset-0 adventure-gradient z-[1]"></div>
+
+        <div class="relative z-[2] px-4 text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">
+                <span id="t-ham" class="highlight active-burger">햄</span>.<span id="t-pi" class="highlight">피</span>.<span id="t-don" class="highlight">돈</span>
+            </h1>
+            <p id="hero-sub" class="text-xl md:text-3xl mb-8 drop-shadow-md font-bold">
+                "우리의 행복은 <span id="h-burger" class="highlight active-burger">햄버거</span>와 
+                <span id="h-pizza" class="highlight">피자</span>와 
+                <span id="h-tonkatsu" class="highlight">돈까스</span>에서 온다"
+            </p>
+            <a href="#submit" class="bg-white text-orange-600 font-bold py-4 px-10 rounded-full shadow-2xl hover:scale-105 transition transform">탐험 시작하기</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <section id="display" class="grid md:grid-cols-2 gap-10 mb-16">
+            <div id="main-display" class="bg-white p-10 rounded-3xl shadow-2xl border-l-8 border-orange-500">
+                <h2 id="disp-name" class="text-4xl font-bold mb-3">햄.피.돈에 오신 것을 환영합니다!</h2>
+                <p id="disp-menu" class="text-gray-600 text-lg mb-6">맛집을 선택해 탐험을 떠나보세요.</p>
+                <div id="disp-map" class="w-full h-56 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-400 border-2 border-dashed border-orange-300">지도가 여기에 표시됩니다.</div>
+            </div>
+
+            <div class="bg-white p-10 rounded-3xl shadow-2xl">
+                <h3 class="text-3xl font-bold mb-8">맛집 랭킹 리스트</h3>
+                <ul id="rank-list" class="space-y-4">
+                    <!-- Dynamic Items -->
+                </ul>
+            </div>
+        </section>
+
+        <section id="features" class="grid md:grid-cols-4 gap-8 mb-16">
+            <div class="bg-gradient-to-br from-yellow-300 to-yellow-500 p-8 rounded-3xl shadow-lg text-white text-center transform hover:-translate-y-2 transition">
+                <div class="text-5xl mb-4">🍔</div>
+                <h4 class="font-bold text-xl">전문 타겟팅</h4>
+            </div>
+            <div class="bg-gradient-to-br from-orange-400 to-orange-600 p-8 rounded-3xl shadow-lg text-white text-center transform hover:-translate-y-2 transition">
+                <div class="text-5xl mb-4">⏱️</div>
+                <h4 class="font-bold text-xl">시간 단축</h4>
+            </div>
+            <div class="bg-gradient-to-br from-red-400 to-red-600 p-8 rounded-3xl shadow-lg text-white text-center transform hover:-translate-y-2 transition">
+                <div class="text-5xl mb-4">🛡️</div>
+                <h4 class="font-bold text-xl">신뢰 정보</h4>
+            </div>
+            <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 p-8 rounded-3xl shadow-lg text-white text-center transform hover:-translate-y-2 transition">
+                <div class="text-5xl mb-4">📍</div>
+                <h4 class="font-bold text-xl">직관적 위치</h4>
+            </div>
+        </section>
+
+        <section id="submit" class="bg-white p-10 rounded-3xl shadow-2xl border-4 border-orange-200 max-w-2xl mx-auto">
+            <h3 class="text-3xl font-bold mb-8 text-center text-orange-600">나만의 맛집 공유하기</h3>
+            
+            <div class="w-full h-56 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 mb-8 border-2 border-dashed border-gray-300">
+                맛집 위치 확인용 지도 영역
+            </div>
+
+            <form id="food-form" class="space-y-5">
+                <input type="text" id="res-name" placeholder="맛집 이름 입력" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
+                <input type="text" id="res-menu" placeholder="메뉴명" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
+                <input type="number" id="res-rating" min="1" max="5" placeholder="별점 (1~5점)" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
+                <button type="submit" class="w-full bg-orange-600 text-white font-bold py-5 rounded-2xl hover:bg-orange-700 transition text-lg shadow-lg">저장하기</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="py-12 text-center text-gray-500">
+        <p>&copy; 2026 햄피돈 탐험대. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const slides = document.querySelectorAll('.hero-slide');
+        
+        // 제목과 서브타이틀 강조 요소들
+        const titles = [document.getElementById('t-ham'), document.getElementById('t-pi'), document.getElementById('t-don')];
+        const subs = [document.getElementById('h-burger'), document.getElementById('h-pizza'), document.getElementById('h-tonkatsu')];
+        const colors = ['active-burger', 'active-pizza', 'active-tonkatsu'];
+
+        let currentSlide = 0;
+
+        function updateHighlights(index) {
+            // 제목 강조 업데이트
+            titles.forEach((t, i) => t.className = 'highlight' + (i === index ? ' ' + colors[i] : ''));
+            // 서브타이틀 강조 업데이트
+            subs.forEach((s, i) => s.className = 'highlight' + (i === index ? ' ' + colors[i] : ''));
+        }
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+            updateHighlights(currentSlide);
+        }
+
+        setInterval(nextSlide, 5000);
+
+        const restaurants = [
+            { id: 1, name: "돈까스천국", menu: "안심 돈까스", rating: 5 },
+            { id: 2, name: "도미노피자", menu: "포테이토 피자", rating: 4.5 }
+        ];
+
+        function renderList() {
+            const listEl = document.getElementById('rank-list');
+            listEl.innerHTML = '';
+            restaurants.forEach(r => {
+                const li = document.createElement('li');
+                li.className = "p-6 bg-orange-50 rounded-2xl cursor-pointer hover:bg-orange-100 transition transform hover:scale-[1.02] shadow-sm";
+                li.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <strong class="text-xl">${r.name}</strong>
+                            <p class="text-gray-600">${r.menu}</p>
+                        </div>
+                        <div class="text-orange-600 font-bold">★ ${r.rating}점</div>
+                    </div>
+                `;
+                li.onclick = () => updateMain(r);
+                listEl.appendChild(li);
+            });
+        }
+
+        function updateMain(r) {
+            document.getElementById('disp-name').innerText = r.name;
+            document.getElementById('disp-menu').innerText = `추천 메뉴: ${r.menu} | 평점: ${r.rating}점`;
+        }
+
+        document.getElementById('food-form').onsubmit = (e) => {
+            e.preventDefault();
+            const newRes = {
+                id: Date.now(),
+                name: document.getElementById('res-name').value,
+                menu: document.getElementById('res-menu').value,
+                rating: document.getElementById('res-rating').value
+            };
+            if(!newRes.name) return;
+            restaurants.push(newRes);
+            renderList();
+            e.target.reset();
+        };
+
+        renderList();
+        updateMain(restaurants[0]);
+    </script>
+</body>
+</html>
