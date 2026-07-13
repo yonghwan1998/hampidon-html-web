@@ -183,7 +183,7 @@
             <form id="food-form" class="space-y-5">
                 <input type="text" id="res-name" placeholder="맛집 이름 입력" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
                 <input type="text" id="res-menu" placeholder="메뉴명" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
-                <input type="number" id="res-rating" min="1" max="5" placeholder="별점 (1~5점)" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
+                <input type="number" id="res-rating" min="1" max="5" step="0.1" placeholder="별점 (1~5점)" class="w-full p-4 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none">
                 <button type="submit" class="w-full bg-orange-600 text-white font-bold py-5 rounded-2xl hover:bg-orange-700 transition text-lg shadow-lg">저장하기</button>
             </form>
         </section>
@@ -324,7 +324,7 @@
                 id: Date.now(),
                 name: document.getElementById('res-name').value,
                 menu: document.getElementById('res-menu').value,
-                rating: document.getElementById('res-rating').value
+                rating: parseFloat(document.getElementById('res-rating').value) || 0
             };
             if (!newRes.name) return;
             restaurants.push(newRes);
