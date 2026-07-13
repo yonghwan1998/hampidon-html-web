@@ -13,7 +13,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        body { font-family: 'Jua', sans-serif; background-color: #fffaf0; }
+        body { font-family: 'Jua', sans-serif; background-color: #fffaf0; overflow: hidden; }
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
         .adventure-gradient {
             background: linear-gradient(135deg, rgba(255, 126, 95, 0.7), rgba(254, 211, 77, 0.7));
         }
