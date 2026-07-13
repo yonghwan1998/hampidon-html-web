@@ -219,10 +219,28 @@
 
         setInterval(nextSlide, 3000);
 
-        const restaurants = [
-            { id: 1, name: "돈까스천국", menu: "안심 돈까스", rating: 5 },
-            { id: 2, name: "도미노피자", menu: "포테이토 피자", rating: 4.5 }
-        ];
+        const RESTAURANT_STORAGE_KEY = 'hampidon-restaurants';
+
+        function loadRestaurants() {
+            const saved = localStorage.getItem(RESTAURANT_STORAGE_KEY);
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch (error) {
+                    localStorage.removeItem(RESTAURANT_STORAGE_KEY);
+                }
+            }
+            return [
+                { id: 1, name: "돈까스천국", menu: "안심 돈까스", rating: 5 },
+                { id: 2, name: "도미노피자", menu: "포테이토 피자", rating: 4.5 }
+            ];
+        }
+
+        function saveRestaurants() {
+            localStorage.setItem(RESTAURANT_STORAGE_KEY, JSON.stringify(restaurants));
+        }
+
+        const restaurants = loadRestaurants();
 
         function renderList() {
             const listEl = document.getElementById('rank-list');
@@ -308,8 +326,9 @@
                 menu: document.getElementById('res-menu').value,
                 rating: document.getElementById('res-rating').value
             };
-            if(!newRes.name) return;
+            if (!newRes.name) return;
             restaurants.push(newRes);
+            saveRestaurants();
             renderList();
             e.target.reset();
         };
