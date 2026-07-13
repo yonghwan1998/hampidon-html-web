@@ -136,15 +136,18 @@
     </header>
 
     <main class="container mx-auto px-4 py-16">
-        <section id="display" class="grid md:grid-cols-2 gap-10 mb-16">
-            <div id="main-display" class="bg-white p-10 rounded-3xl shadow-2xl border-l-8 border-orange-500">
+        <section id="display" class="bg-white p-10 rounded-3xl shadow-2xl border-l-8 border-orange-500 mb-16">
+            <div id="main-display">
                 <h2 id="disp-name" class="text-4xl font-bold mb-3">햄.피.돈에 오신 것을 환영합니다!</h2>
                 <p id="disp-menu" class="text-gray-600 text-lg mb-6">맛집을 선택해 탐험을 떠나보세요.</p>
+                <!-- 지도 영역은 추후 사용을 위해 주석 처리되었습니다.
                 <div id="disp-map" class="w-full h-56 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-400 border-2 border-dashed border-orange-300">지도가 여기에 표시됩니다.</div>
+                -->
             </div>
 
-            <div class="bg-white p-10 rounded-3xl shadow-2xl">
-                <h3 class="text-3xl font-bold mb-8">맛집 랭킹 리스트</h3>
+            <div class="border-t border-gray-200 mt-10 pt-10">
+                <h3 class="text-3xl font-bold mb-3">맛집 랭킹 리스트</h3>
+                <p class="text-gray-500 mb-8">아래 리스트를 눌러 정보를 확인해보세요!</p>
                 <ul id="rank-list" class="space-y-4">
                     <!-- Dynamic Items -->
                 </ul>
