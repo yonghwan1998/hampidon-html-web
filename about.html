@@ -17,6 +17,29 @@
         .adventure-gradient {
             background: linear-gradient(135deg, rgba(255, 126, 95, 0.7), rgba(254, 211, 77, 0.7));
         }
+        .floating-food-wrapper {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 50;
+        }
+
+        .floating-food {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            opacity: 0.95;
+            filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
+            animation: float-food linear infinite;
+        }
+
+        @keyframes float-food {
+            0% { transform: translateX(-40px) translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translateX(calc(100vw + 40px)) translateY(-20px) rotate(180deg); }
+            100% { transform: translateX(calc(100vw + 80px)) translateY(20px) rotate(360deg); opacity: 0; }
+        }
     </style>
 </head>
 <body class="text-gray-900">
@@ -32,6 +55,7 @@
     </nav>
 
     <main class="container mx-auto px-4 py-16">
+        <div id="floating-food-wrapper" class="floating-food-wrapper"></div>
         <!-- Section 1: Journey -->
         <section class="mb-20">
             <div class="bg-white p-10 rounded-3xl shadow-2xl border-l-8 border-orange-500 adventure-gradient text-white">
@@ -63,5 +87,34 @@
     <footer class="py-12 text-center text-gray-500">
         <p>&copy; 2026 햄피돈 탐험대. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        const floatingFoods = [
+            'img/16x16-hamburger.png',
+            'img/16x16-pizza.png',
+            'img/16x16-cutlet.png'
+        ];
+
+        function createFloatingFood() {
+            const wrapper = document.getElementById('floating-food-wrapper');
+            const food = document.createElement('img');
+            food.src = floatingFoods[Math.floor(Math.random() * floatingFoods.length)];
+            food.className = 'floating-food';
+            food.style.top = `${Math.random() * 75 + 8}vh`;
+            food.style.animationDuration = `${Math.random() * 6 + 6}s`;
+            food.style.animationDelay = `${Math.random() * 4}s`;
+            wrapper.appendChild(food);
+            food.addEventListener('animationend', () => wrapper.removeChild(food));
+        }
+
+        function startFloatingFoods() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(createFloatingFood, i * 600);
+            }
+            setInterval(createFloatingFood, 1200);
+        }
+
+        startFloatingFoods();
+    </script>
 </body>
 </html>
