@@ -245,7 +245,7 @@
         function renderList() {
             const listEl = document.getElementById('rank-list');
             listEl.innerHTML = '';
-            restaurants.forEach(r => {
+            restaurants.slice().reverse().forEach(r => {
                 const li = document.createElement('li');
                 li.className = "p-6 bg-orange-50 rounded-2xl cursor-pointer hover:bg-orange-100 transition transform hover:scale-[1.02] shadow-sm";
                 li.innerHTML = `
