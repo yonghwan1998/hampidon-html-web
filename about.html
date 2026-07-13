@@ -34,6 +34,22 @@
             animation: float-food linear infinite;
         }
 
+        body, button, input, textarea, select, a {
+            cursor: none !important;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
         @keyframes float-food {
             0% { transform: translateX(-40px) translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
@@ -56,6 +72,7 @@
 
     <main class="container mx-auto px-4 py-16">
         <div id="floating-food-wrapper" class="floating-food-wrapper"></div>
+        <div id="custom-cursor" class="custom-cursor"></div>
         <!-- Section 1: Journey -->
         <section class="mb-20">
             <div class="bg-white p-10 rounded-3xl shadow-2xl border-l-8 border-orange-500 adventure-gradient text-white">
@@ -114,7 +131,34 @@
             setInterval(createFloatingFood, 1200);
         }
 
+        const cursorFoods = [
+            'img/16x16-hamburger.png',
+            'img/16x16-pizza.png',
+            'img/16x16-cutlet.png'
+        ];
+
+        const customCursor = document.getElementById('custom-cursor');
+        let cursorIndex = 0;
+
+        function updateCursorImage() {
+            customCursor.style.backgroundImage = `url('${cursorFoods[cursorIndex]}')`;
+        }
+
+        function startCursorCycle() {
+            updateCursorImage();
+            setInterval(() => {
+                cursorIndex = (cursorIndex + 1) % cursorFoods.length;
+                updateCursorImage();
+            }, 900);
+        }
+
+        document.addEventListener('mousemove', (event) => {
+            customCursor.style.left = `${event.clientX}px`;
+            customCursor.style.top = `${event.clientY}px`;
+        });
+
         startFloatingFoods();
+        startCursorCycle();
     </script>
 </body>
 </html>
